@@ -1,0 +1,13 @@
+port: "8000"
+
+db:
+  username: "postgres"
+  host: "localhost"
+  port: "5432"
+  dbname: "postgres"
+  sslmode: "disable"
+
+dbTables:
+  images: images
+  staff: staff
+  time_records: time_records
