@@ -6,5 +6,4 @@ import (
 	"strings"
 )
 
-type
 // to add
