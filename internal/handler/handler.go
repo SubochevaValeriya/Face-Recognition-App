@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"github.com/SubochevaValeriya/face-recognition-app/internal/middlewares"
 	"github.com/SubochevaValeriya/face-recognition-app/internal/service"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
@@ -25,7 +26,13 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		user := api.Group("/user")
 		{
 			user.POST("/register", h.Register)
-			user.POST("/register", h.Login)
+			user.POST("/login", h.Login)
+		}
+
+		protected := api.Group("/admin")
+		{
+			protected.Use(middlewares.JwtAuthMiddleware())
+			protected.GET("/user", h.CurrentUser)
 		}
 
 		staff := api.Group("/staff")
