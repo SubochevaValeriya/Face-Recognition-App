@@ -6,14 +6,6 @@ import (
 	"time"
 )
 
--recognition-app
-
-import (
-	"context"
-	"net/http"
-	"time"
-)
-
 type Server struct {
 	httpServer *http.Server
 }

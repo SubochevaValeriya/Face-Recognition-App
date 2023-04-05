@@ -4,10 +4,10 @@ import (
 	"github.com/SubochevaValeriya/face-recognition-app/internal/repository"
 )
 
-type ApiService struct {
+type ImageApiService struct {
 	repo repository.Staff
 }
 
-func newApiService(repo repository.Staff) *ApiService {
-	return &ApiService{repo: repo}
+func newImageApiService(repo repository.Staff) *ImageApiService {
+	return &ImageApiService{repo: repo}
 }

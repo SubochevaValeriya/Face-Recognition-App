@@ -49,9 +49,12 @@ func main() {
 		logrus.Fatalf("failed to inititalize db: %s", err.Error())
 	}
 
-	dbTables := repository.DbTables{Staff: viper.GetString("dbTables.staff"),
+	dbTables := repository.DbTables{
+		User: viper.GetString("dbTables.user"),
+		Staff: viper.GetString("dbTables.staff"),
 		Images:      viper.GetString("dbTables.images"),
-		TimeRecords: viper.GetString("dbTables.time_records")}
+		TimeRecords: viper.GetString("dbTables.time_records"),
+	}
 
 	// dependency injection
 	repos := repository.NewRepository(db, dbTables)

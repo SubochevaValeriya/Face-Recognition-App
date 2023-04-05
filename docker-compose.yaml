@@ -11,6 +11,8 @@ services:
     environment:
       - host=db
       - DB_PASSWORD=qwerty
+      - API_SECRET=yoursecretstring
+      - TOKEN_HOUR_LIFESPAN=1
 
   db:
     restart: always

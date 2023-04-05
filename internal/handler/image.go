@@ -7,6 +7,6 @@ import (
 )
 
 type Image struct {
-	ID   int   json:"id"
-	Path string json:"path"
+	ID   int    `json:"id"`
+	Path string `json:"path"`
 }

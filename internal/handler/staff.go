@@ -7,8 +7,8 @@ import (
 )
 
 type Staff struct {
-	ID      int                  json:"id"
-	Name    string                 json:"name"
-	PhotoId int                    json:"photo_id"
-	Meta    map[string]interface{} json:"meta"
+	ID      int                    `json:"id"`
+	Name    string                 `json:"name"`
+	PhotoId int                    `json:"photo_id"`
+	Meta    map[string]interface{} `json:"meta"`
 }

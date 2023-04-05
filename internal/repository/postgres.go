@@ -2,6 +2,7 @@ package repository
 
 import (
 	"fmt"
+
 	"github.com/jmoiron/sqlx"
 )
 
@@ -29,6 +30,7 @@ type ApiPostgres struct {
 }
 
 type DbTables struct {
+	User        string
 	Staff       string
 	Images      string
 	TimeRecords string
