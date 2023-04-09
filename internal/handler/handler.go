@@ -1,7 +1,7 @@
 package handler
 
 import (
-	//	"github.com/SubochevaValeriya/face-recognition-app/internal/middlewares"
+	"github.com/SubochevaValeriya/face-recognition-app/internal/middlewares"
 	"github.com/SubochevaValeriya/face-recognition-app/internal/service"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
