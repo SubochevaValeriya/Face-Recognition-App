@@ -50,8 +50,8 @@ func main() {
 	}
 
 	dbTables := repository.DbTables{
-		User: viper.GetString("dbTables.user"),
-		Staff: viper.GetString("dbTables.staff"),
+		User:        viper.GetString("dbTables.user"),
+		Staff:       viper.GetString("dbTables.staff"),
 		Images:      viper.GetString("dbTables.images"),
 		TimeRecords: viper.GetString("dbTables.time_records"),
 	}
@@ -81,7 +81,8 @@ func main() {
 		logrus.Errorf("error occured on server shutting down: %s", err.Error())
 	}
 
-	if err := db.Close(); err != nil {
+	sqlDB, err := db.DB()
+	if err := sqlDB.Close(); err != nil {
 		logrus.Errorf("error occured on db connection close: %s", err.Error())
 	}
 }

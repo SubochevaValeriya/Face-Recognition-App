@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github.com/SubochevaValeriya/face-recognition-app/internal/middlewares"
+	//	"github.com/SubochevaValeriya/face-recognition-app/internal/middlewares"
 	"github.com/SubochevaValeriya/face-recognition-app/internal/service"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
@@ -37,7 +37,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 
 		staff := api.Group("/staff")
 		{
-			staff.POST("/add", h.addStaff)
+			staff.POST("/add", h.AddStaff)
 			staff.PUT("/update", h.UpdateStaff)
 			staff.DELETE("/delete", h.DeleteStaff)
 			staff.GET("/get", h.GetStaff)

@@ -5,23 +5,19 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-type ErrorResponse struct {
+type Response struct {
 	Message string `json:"message"`
-}
-
-type StatusResponse struct {
-	Status string `json:"status"`
 }
 
 func newErrorResponse(c *gin.Context, statusCode int, message string) {
 	logrus.Error(message)
-	c.AbortWithStatusJSON(statusCode, ErrorResponse{message})
+	c.AbortWithStatusJSON(statusCode, Response{message})
 }
 
-func newSuccessResponse(method string, city string) {
-	if city == "" {
+func newSuccessResponse(method string, name string) {
+	if name == "" {
 		logrus.Printf("Succesful request for %s", method)
 	} else {
-		logrus.Printf("Succesful request for %s - %s", method, city)
+		logrus.Printf("Succesful request for %s - %s", method, name)
 	}
 }
