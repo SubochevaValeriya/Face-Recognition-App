@@ -1,8 +1,8 @@
 build:
-	docker-compose build faceRecognition-app
+	docker-compose build face-recognition-app
 
 run:
-	docker-compose up faceRecognition-app
+	docker-compose up face-recognition-app
 
 test:
 	go test -v ./...

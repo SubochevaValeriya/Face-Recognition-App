@@ -1,12 +1,10 @@
 package service
 
 import (
-	"os"
-
 	"github.com/SubochevaValeriya/face-recognition-app/internal/repository"
-	"github.com/jmoiron/sqlx"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
+	"os"
 )
 
 var DB *sqlx.DB
