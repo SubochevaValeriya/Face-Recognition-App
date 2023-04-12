@@ -1,14 +1,8 @@
 package models
 
 import (
-	"errors"
-	"html"
-	"strings"
-
 	"golang.org/x/crypto/bcrypt"
-
-	"github.com/SubochevaValeriya/face-recognition-app/internal/service"
-	"github.com/SubochevaValeriya/face-recognition-app/internal/utils/token"
+	"strings"
 )
 
 type User struct {

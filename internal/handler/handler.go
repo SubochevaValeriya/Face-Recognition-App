@@ -37,7 +37,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 
 		staff := api.Group("/staff")
 		{
-			staff.POST("/add", h.addStaff)
+			staff.POST("/add", h.AddStaff)
 			staff.PUT("/update", h.UpdateStaff)
 			staff.DELETE("/delete", h.DeleteStaff)
 			staff.GET("/get", h.GetStaff)

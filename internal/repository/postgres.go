@@ -2,8 +2,9 @@ package repository
 
 import (
 	"fmt"
-
-	"github.com/jmoiron/sqlx"
+	"github.com/SubochevaValeriya/face-recognition-app/internal/models"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 type Config struct {
@@ -15,17 +16,20 @@ type Config struct {
 	SSLMode  string
 }
 
-func NewPostgresDB(cfg Config) (*sqlx.DB, error) {
-	db, err := sqlx.Connect("postgres", fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=%s", cfg.Host, cfg.Port, cfg.Username, cfg.DBName, cfg.Password, cfg.SSLMode))
+func NewPostgresDB(cfg Config) (*gorm.DB, error) {
+	//dbURL := fmt.Sprintf("postgres://%s:pass@%s:%s/", cfg.Username, cfg.Host, cfg.Port)
+	config := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=%s TimeZone=Europe/Moscow", cfg.Host, cfg.Username, cfg.Password, cfg.DBName, cfg.Port, cfg.SSLMode)
+	//	db, err := gorm.Open(postgres.Open(fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=%s", cfg.Host, cfg.Port, cfg.Username, cfg.DBName, cfg.Password, cfg.SSLMode)), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(config), &gorm.Config{})
 	if err != nil {
 		return nil, fmt.Errorf("connect error: %s", err)
 	}
-
+	db.Table("Staff").AutoMigrate(&models.Staff{})
 	return db, nil
 }
 
 type ApiPostgres struct {
-	db       *sqlx.DB
+	db       *gorm.DB
 	dbTables DbTables
 }
 
@@ -36,7 +40,7 @@ type DbTables struct {
 	TimeRecords string
 }
 
-func NewApiPostgres(db *sqlx.DB, dbTables DbTables) *ApiPostgres {
+func NewApiPostgres(db *gorm.DB, dbTables DbTables) *ApiPostgres {
 	return &ApiPostgres{db: db,
 		dbTables: dbTables}
 }

@@ -1,16 +1,12 @@
-CREATE TABLE image
+CREATE TABLE images
 (
-// add
+    id serial not null unique primary key
 );
 
-CREATE TABLE staff
-
+CREATE TABLE staffs
 (
-// add
-);
-
-CREATE TABLE time_records
-
-(
-// add
+    id serial not null unique primary key,
+    name varchar(255) not null,
+    photo_id int not null references images(id),
+    meta json
 );
