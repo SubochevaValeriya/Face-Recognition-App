@@ -1,10 +1,11 @@
 package service
 
 import (
+	"os"
+
 	"github.com/SubochevaValeriya/face-recognition-app/internal/models"
 	"github.com/SubochevaValeriya/face-recognition-app/internal/repository"
 	"gorm.io/datatypes"
-	"os"
 )
 
 type Staff interface {
@@ -17,10 +18,17 @@ type Staff interface {
 	RecognizeStaff(file os.File) (models.Staff, error)
 }
 
+type User interface {
+	GetUserByID(uid uint) (models.User, error)
+	LoginCheck(username string, password string) (string, error)
+	SaveUser(user *models.User) (*models.User, error)
+}
+
 type Service struct {
 	Staff
+	User
 }
 
 func NewService(repos *repository.Repository) *Service {
-	return &Service{newStaffApiService(repos.Staff)}
+	return &Service{newStaffApiService(repos.Staff), newUserApiService(repos.User)}
 }

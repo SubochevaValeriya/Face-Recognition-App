@@ -7,11 +7,13 @@ import (
 
 type Response struct {
 	Message string `json:"message"`
+	Token   string `json:"token"`
+	Data    string `json:"data"`
 }
 
 func newErrorResponse(c *gin.Context, statusCode int, message string) {
 	logrus.Error(message)
-	c.AbortWithStatusJSON(statusCode, Response{message})
+	c.AbortWithStatusJSON(statusCode, Response{message, "", ""})
 }
 
 func newSuccessResponse(method string, name string) {

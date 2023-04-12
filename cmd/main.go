@@ -2,6 +2,10 @@ package main
 
 import (
 	"context"
+	"os"
+	"os/signal"
+	"syscall"
+
 	faceRecognition "github.com/SubochevaValeriya/face-recognition-app"
 	"github.com/SubochevaValeriya/face-recognition-app/internal/handler"
 	"github.com/SubochevaValeriya/face-recognition-app/internal/repository"
@@ -10,9 +14,6 @@ import (
 	_ "github.com/lib/pq"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
-	"os"
-	"os/signal"
-	"syscall"
 )
 
 // @title Face Recognition API
@@ -37,14 +38,7 @@ func main() {
 	//sudo docker run --name=faceRecognition -e POSTGRES_PASSWORD='qwerty' -p 5432:5432 -d --rm postgres
 	// migrate -path ./schema -database 'postgres://postgres:qwerty@localhost:5432/postgres?sslmode=disable' up
 
-	db, err := repository.NewPostgresDB(repository.Config{
-		Host:     os.Getenv("host"),
-		Port:     viper.GetString("db.port"),
-		Username: viper.GetString("db.username"),
-		Password: os.Getenv("DB_PASSWORD"),
-		DBName:   viper.GetString("db.dbname"),
-		SSLMode:  viper.GetString("db.sslmode"),
-	})
+	db, err := service.ConnectToDB()
 	if err != nil {
 		logrus.Fatalf("failed to inititalize db: %s", err.Error())
 	}

@@ -1,15 +1,14 @@
 package service
 
 import (
-	"github.com/SubochevaValeriya/face-recognition-app/internal/repository"
-	"github.com/sirupsen/logrus"
-	"github.com/spf13/viper"
 	"os"
+
+	"github.com/SubochevaValeriya/face-recognition-app/internal/repository"
+	"github.com/spf13/viper"
+	"gorm.io/gorm"
 )
 
-var DB *sqlx.DB
-
-func Connect() {
+func ConnectToDB() (*gorm.DB, error) {
 	db, err := repository.NewPostgresDB(repository.Config{
 		Host:     os.Getenv("host"),
 		Port:     viper.GetString("db.port"),
@@ -19,9 +18,5 @@ func Connect() {
 		SSLMode:  viper.GetString("db.sslmode"),
 	})
 
-	if err != nil {
-		logrus.Fatalf("failed to inititalize db: %s", err.Error())
-	}
-
-	DB = db
+	return db, err
 }
