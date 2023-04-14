@@ -2,6 +2,7 @@ package repository
 
 import (
 	"fmt"
+
 	"github.com/SubochevaValeriya/face-recognition-app/internal/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
