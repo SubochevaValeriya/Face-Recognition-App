@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"io"
+	"mime/multipart"
 	"os"
 
 	"github.com/SubochevaValeriya/face-recognition-app/internal/models"
@@ -24,14 +26,22 @@ type User interface {
 	GetUserByName(username string) (*models.User, error)
 }
 
+type Image interface {
+	GetImage(id string) (models.Image, error)
+	SaveImageToFS(file io.Reader, header *multipart.FileHeader) (string, error)
+	CreateImage(image models.Image) (models.Image, error)
+}
+
 type Repository struct {
 	Staff
 	User
+	Image
 }
 
 func NewRepository(db *gorm.DB, dbTables DbTables) *Repository {
 	apiPostgres := NewApiPostgres(db, dbTables)
 	return &Repository{
+		apiPostgres,
 		apiPostgres,
 		apiPostgres,
 	}
