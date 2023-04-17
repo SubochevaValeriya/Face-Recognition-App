@@ -8,6 +8,7 @@ require (
 	github.com/google/uuid v1.1.2
 	github.com/joho/godotenv v1.4.0
 	github.com/lib/pq v1.2.0
+	github.com/modeckrus/go-face v0.0.0-20230402224536-4d0c97ce6595
 	github.com/sirupsen/logrus v1.9.0
 	github.com/spf13/viper v1.13.0
 	github.com/swaggo/files v0.0.0-20220728132757-551d4a08d97a

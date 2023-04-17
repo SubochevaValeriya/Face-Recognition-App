@@ -28,7 +28,10 @@ type User interface {
 
 type Image interface {
 	GetImage(id string) (models.Image, error)
+	GetImageAsFile(id string) (string, io.Reader, error)
 	SaveImage(file io.Reader, header *multipart.FileHeader) (models.Image, error)
+	RecognizeImage(file io.Reader, header *multipart.FileHeader) (models.Image, error)
+	UploadImageWithFace(file io.Reader, header *multipart.FileHeader) (models.Image, error)
 }
 
 type Service struct {
