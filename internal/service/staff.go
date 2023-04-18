@@ -1,12 +1,9 @@
 package service
 
 import (
-	"fmt"
 	"github.com/SubochevaValeriya/face-recognition-app/internal/models"
 	"github.com/SubochevaValeriya/face-recognition-app/internal/repository"
-	"github.com/modeckrus/go-face"
 	"gorm.io/datatypes"
-	"log"
 	"path/filepath"
 )
 
@@ -48,21 +45,6 @@ var (
 	imagesDir = filepath.Join(dataDir, "images")
 )
 
-func (s *StaffApiService) RecognizeStaff(image []byte) (models.Staff, error) {
-	rec, err := face.NewRecognizer(modelsDir)
-	testImageNayoung := filepath.Join(imagesDir, "nayoung.jpg")
-	nayoungFace, err := rec.RecognizeSingleFile(testImageNayoung)
-	if err != nil {
-		log.Fatalf("Can't recognize: %v", err)
-	}
-	if nayoungFace == nil {
-		log.Fatalf("Not a single face on the image")
-	}
-	catID := rec.Classify(nayoungFace.Descriptor)
-	if catID < 0 {
-		log.Fatalf("Can't classify")
-	}
-	// Finally print the classified label. It should be "Nayoung".
-	fmt.Println(labels[catID])
-	return s.repo.RecognizeStaff(file)
+func (s *StaffApiService) RecognizeStaff(imageId int) (models.Staff, error) {
+	return s.repo.RecognizeStaff(imageId)
 }

@@ -18,7 +18,7 @@ type Staff interface {
 	GetStaff(id int) (models.Staff, error)
 	GetAllStaff() ([]models.Staff, error)
 	FindStaff(meta datatypes.JSONMap) ([]models.Staff, error)
-	RecognizeStaff(file os.File) (models.Staff, error)
+	RecognizeStaff(imageId int) (models.Staff, error)
 }
 
 type User interface {
