@@ -46,14 +46,14 @@ func (h *Handler) InitRoutes() *gin.Engine {
 			staff.POST("/find", h.FindStaff)
 		}
 
-		// image := api.Group("/image")
-		// {
-		// 	image.POST("/upload", h.UploadEndPoint)
-		// 	image.GET("/data", h.DataEndPoint)
-		// 	image.GET("/file", h.FileEndPoint)
-		// 	image.POST("/recognize", h.Recognize)
-		// 	image.POST("/save", h.SaveEndPoint)
-		// }
+		image := api.Group("/image")
+		{
+			image.POST("/upload", h.UploadEndPoint)
+			image.GET("/data", h.DataEndPoint)
+			image.GET("/file", h.FileEndPoint)
+			image.POST("/recognize", h.Recognize)
+			image.POST("/save", h.SaveEndPoint)
+		}
 
 		// timeRecord := api.Group("/timerecord")
 		// {
