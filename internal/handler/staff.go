@@ -3,7 +3,9 @@ package handler
 import (
 	"github.com/SubochevaValeriya/face-recognition-app/internal/models"
 	"github.com/gin-gonic/gin"
+	"io"
 	"net/http"
+	"os"
 	"strconv"
 )
 
@@ -141,7 +143,25 @@ func (h *Handler) GetAllStaff(c *gin.Context) {
 // @Router /staff [post]
 // RecognizeStaff is made for recognize staff
 func (h *Handler) RecognizeStaff(c *gin.Context) {
-	var meta map[string]any
+	body := c.Request.Body
+	image, err := io.ReadAll(body)
+	if err != nil {
+		newErrorResponse(c, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	h.services.RecognizeStaff(image)
+	file, _ := c.FormFile("file")
+	src, _ := file.Open()
+	defer src.Close()
+
+	// Destination
+	dst, _ := os.Create(file.Filename)
+	defer dst.Close()
+
+	// Copy
+	io.Copy(dst, src)
+	var meta string
 
 	if err := c.BindJSON(&meta); err != nil {
 		newErrorResponse(c, http.StatusBadRequest, err.Error())
