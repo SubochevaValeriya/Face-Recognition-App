@@ -3,9 +3,7 @@ package handler
 import (
 	"github.com/SubochevaValeriya/face-recognition-app/internal/models"
 	"github.com/gin-gonic/gin"
-	"io"
 	"net/http"
-	"os"
 	"strconv"
 )
 
@@ -143,40 +141,30 @@ func (h *Handler) GetAllStaff(c *gin.Context) {
 // @Router /staff [post]
 // RecognizeStaff is made for recognize staff
 func (h *Handler) RecognizeStaff(c *gin.Context) {
-	body := c.Request.Body
-	image, err := io.ReadAll(body)
+	file, header, err := c.Request.FormFile("upload")
+
 	if err != nil {
+		c.JSON(400, gin.H{"error": "Wrong image data"})
 		newErrorResponse(c, http.StatusBadRequest, err.Error())
-		return
 	}
+	defer file.Close()
 
-	h.services.RecognizeStaff(image)
-	file, _ := c.FormFile("file")
-	src, _ := file.Open()
-	defer src.Close()
+	image, err := h.services.RecognizeImage(file, header)
 
-	// Destination
-	dst, _ := os.Create(file.Filename)
-	defer dst.Close()
-
-	// Copy
-	io.Copy(dst, src)
-	var meta string
-
-	if err := c.BindJSON(&meta); err != nil {
-		newErrorResponse(c, http.StatusBadRequest, err.Error())
-		return
-	}
-
-	staff, err := h.services.FindStaff(meta)
 	if err != nil {
+		c.JSON(500, gin.H{"error": "Could not process image"})
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+	}
+
+	staff, err := h.services.RecognizeStaff(image.ID)
+	if err != nil {
+		newErrorResponse(c, http.StatusBadRequest, err.Error())
 		return
 	}
 
 	c.JSON(http.StatusOK, staff)
 
-	newSuccessResponse("finding staff", "")
+	newSuccessResponse("recognizing staff", "")
 }
 
 // @Summary Find Staff

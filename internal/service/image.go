@@ -2,7 +2,6 @@ package service
 
 import (
 	"io"
-	"io/ioutil"
 	"mime/multipart"
 	"os"
 	"reflect"
@@ -88,7 +87,7 @@ func (s *ImageApiService) RecognizeFaceOnImage(path string) ([]face.Face, error)
 		return []face.Face{}, err
 	}
 
-	data, err := ioutil.ReadAll(imgFile)
+	data, err := io.ReadAll(imgFile)
 
 	if err != nil {
 		return []face.Face{}, err

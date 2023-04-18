@@ -1,13 +1,11 @@
 package service
 
 import (
-	"io"
-	"mime/multipart"
-	"os"
-
 	"github.com/SubochevaValeriya/face-recognition-app/internal/models"
 	"github.com/SubochevaValeriya/face-recognition-app/internal/repository"
 	"gorm.io/datatypes"
+	"io"
+	"mime/multipart"
 )
 
 type Staff interface {
@@ -17,7 +15,7 @@ type Staff interface {
 	GetStaff(id int) (models.Staff, error)
 	GetAllStaff() ([]models.Staff, error)
 	FindStaff(meta datatypes.JSONMap) ([]models.Staff, error)
-	RecognizeStaff(file os.File) (models.Staff, error)
+	RecognizeStaff(imageId int) (models.Staff, error)
 }
 
 type User interface {
