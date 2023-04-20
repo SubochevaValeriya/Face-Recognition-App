@@ -1,10 +1,12 @@
 package repository
 
 import (
+	"context"
 	"io"
 	"io/fs"
 	"mime/multipart"
 	"os"
+	"time"
 
 	"github.com/SubochevaValeriya/face-recognition-app/internal/models"
 	"gorm.io/datatypes"
@@ -37,10 +39,23 @@ type Image interface {
 	GetFiles() ([]fs.FileInfo, error)
 }
 
+type TimeRecordDb interface {
+	Add(timeRecord models.AddTimeRecord) (models.TimeRecord, error)
+	Update(timeRecord models.UpdateTimeRecord) (models.TimeRecord, error)
+	Delete(id int) error
+	Get(id int) (models.TimeRecord, error)
+	All() ([]models.TimeRecord, error)
+	ByEmployeeId(id int) ([]models.TimeRecord, error)
+	ByDate(start time.Time, end time.Time, employeeId int) ([]models.TimeRecord, error)
+	LastByEmployeeId(id int) (models.TimeRecord, error)
+	Stream(ctx context.Context) (chan models.StreamModel[models.TimeRecord], error)
+}
+
 type Repository struct {
 	Staff
 	User
 	Image
+	TimeRecordDb
 }
 
 func NewRepository(db *gorm.DB, dbTables DbTables) *Repository {

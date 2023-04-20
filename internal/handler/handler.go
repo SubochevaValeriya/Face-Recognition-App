@@ -55,17 +55,17 @@ func (h *Handler) InitRoutes() *gin.Engine {
 			image.POST("/save", h.SaveEndPoint)
 		}
 
-		// timeRecord := api.Group("/timerecord")
-		// {
-		// 	timeRecord.POST("/add", h.AddTimeRecord)
-		// 	timeRecord.PUT("/update", h.UpdateTimeRecord)
-		// 	timeRecord.DELETE("/delete", h.DeleteTimeRecord)
-		// 	timeRecord.GET("/get", h.GetTimeRecord)
-		// 	timeRecord.GET("/all", h.AllTimeRecords)
-		// 	timeRecord.GET("/byemployee", h.TimeRecordsByEmployee)
-		// 	timeRecord.POST("/bydate", h.TimeRecordsByDate)
-		// 	timeRecord.GET("/lastbyemployee", h.TimeRecordLastByEmployee)
-		// }
+		timeRecord := api.Group("/timerecord")
+		{
+			timeRecord.POST("/add", h.AddTimeRecord)
+			timeRecord.PUT("/update", h.UpdateTimeRecord)
+			timeRecord.DELETE("/delete", h.DeleteTimeRecord)
+			timeRecord.GET("/get", h.GetTimeRecord)
+			timeRecord.GET("/all", h.AllTimeRecords)
+			timeRecord.GET("/byemployee", h.TimeRecordsByEmployee)
+			timeRecord.POST("/bydate", h.TimeRecordsByDate)
+			timeRecord.GET("/lastbyemployee", h.TimeRecordLastByEmployee)
+		}
 
 		// thirdparty := api.Group("/thirdparty")
 		// {
